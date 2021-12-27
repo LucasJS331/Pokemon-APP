@@ -1,12 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+
+import {Home} from './templates/Home/index';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { PokePage } from './templates/PokePage';
+import { NotFoundPage } from './templates/NotFoundPage';
+import { PokemonContext } from './context/pokemon-context';
+import { GlobalStyle } from './styles/global-style';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <GlobalStyle/>
+    <PokemonContext>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/pokemon/:name" element={<PokePage/>}/>
+          <Route path="/" element={<Home/>}  exact />
+          <Route path="*" element={<NotFoundPage/>} />
+        </Routes>
+      </BrowserRouter>
+    </PokemonContext>
+ 
   </React.StrictMode>,
   document.getElementById('root')
 );
